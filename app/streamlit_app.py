@@ -10,14 +10,22 @@ import pandas as pd
 from datetime import date, timedelta
 from supabase import create_client
 
-from config.settings import SUPABASE_URL, SUPABASE_ANON_KEY
-
 st.set_page_config(page_title="AI Sentiment Heatmap", layout="wide")
+
+
+def _get_setting(key: str) -> str:
+    """Read from Streamlit secrets (cloud) or env vars (local)."""
+    if hasattr(st, "secrets") and key in st.secrets:
+        return st.secrets[key]
+    from config.settings import _get
+    return _get(key)
 
 
 @st.cache_resource
 def get_supabase_client():
-    return create_client(SUPABASE_URL, SUPABASE_ANON_KEY)
+    url = _get_setting("SUPABASE_URL")
+    key = _get_setting("SUPABASE_ANON_KEY")
+    return create_client(url, key)
 
 
 @st.cache_data(ttl=3600)
