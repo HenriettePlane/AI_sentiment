@@ -116,8 +116,19 @@ fig = px.choropleth(
     color="avg_tone",
     hover_name="country_code",
     hover_data={"article_count": True, "avg_tone": ":.2f", "iso3": False},
-    color_continuous_scale="RdYlGn",
-    range_color=[-10, 10],
+    color_continuous_scale=[
+        [0.0, "#d73027"],    # -5  strong red
+        [0.15, "#f46d43"],   # -3.5
+        [0.25, "#fdae61"],   # -2.5
+        [0.35, "#fee08b"],   # -1.5
+        [0.45, "#ffffbf"],   # -0.5
+        [0.55, "#d9ef8b"],   #  0.5
+        [0.65, "#a6d96a"],   #  1.5
+        [0.75, "#66bd63"],   #  2.5
+        [0.85, "#1a9850"],   #  3.5
+        [1.0, "#006837"],    #  5   strong green
+    ],
+    range_color=[-5, 5],
     title="Average Sentiment by Country",
 )
 fig.update_layout(
