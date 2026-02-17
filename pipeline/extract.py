@@ -20,7 +20,14 @@ SELECT
     SharingImage
 FROM `gdelt-bq.gdeltv2.gkg_partitioned`
 WHERE _PARTITIONTIME BETWEEN TIMESTAMP(@start_date) AND TIMESTAMP(@end_date)
-  AND V2Themes LIKE '%TAX_FNCACT_ARTIFICIAL_INTELLIGENCE%'
+  AND (
+    LOWER(Extras) LIKE '%artificial intelligence%'
+    OR LOWER(Extras) LIKE '%machine learning%'
+    OR LOWER(Extras) LIKE '%generative ai%'
+    OR LOWER(Extras) LIKE '%chatgpt%'
+    OR LOWER(Extras) LIKE '%openai%'
+    OR LOWER(Extras) LIKE '%large language model%'
+  )
 """
 
 
