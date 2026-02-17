@@ -35,9 +35,9 @@ def extract(start_date: date | None = None, end_date: date | None = None) -> pd.
         Raw DataFrame with GDELT GKG columns.
     """
     if start_date is None:
-        start_date = date.today() - timedelta(days=1)
+        start_date = date.today() - timedelta(days=3)
     if end_date is None:
-        end_date = date.today()
+        end_date = date.today() - timedelta(days=1)
 
     client = bigquery.Client()
     job_config = bigquery.QueryJobConfig(
